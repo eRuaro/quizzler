@@ -25,6 +25,57 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [
+    Icon(
+      Icons.check,
+      color: Colors.green,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+    )
+  ];
+
+  Expanded options(Color color, String option) {
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.all(15.0),
+        child: FlatButton(
+          color: color,
+          child: Text(
+            '$option',
+            style: TextStyle(
+              fontSize: 20.0,
+              color: Colors.white,
+            ),
+          ),
+          onPressed: () {
+            //The user picked false.
+            setState(() {
+              if (option == 'True') {
+              scoreKeeper.add(
+              Icon(
+              Icons.check,
+              color: Colors.green,
+              ),
+              );
+              }
+              else {
+                scoreKeeper.add(
+                  Icon(
+                    Icons.close,
+                    color: Colors.red,
+                  )
+                );
+              }
+
+            });
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,45 +98,41 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: FlatButton(
-              textColor: Colors.white,
-              color: Colors.green,
-              child: Text(
-                'True',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                ),
-              ),
-              onPressed: () {
-                //The user picked true.
-              },
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: FlatButton(
-              color: Colors.red,
-              child: Text(
-                'False',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                ),
-              ),
-              onPressed: () {
-                //The user picked false.
-              },
-            ),
-          ),
-        ),
-        //TODO: Add a Row here as your score keeper
+        options(Colors.green, 'True'),
+        options(Colors.red, 'False'),
+        Row(
+          children: scoreKeeper,
+        )
       ],
     );
   }
 }
+
+// class Options extends StatelessWidget {
+//   Options({this.color, this.option});
+//
+//   final Color color;
+//   final String option;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Expanded(
+//       child: Padding(
+//         padding: EdgeInsets.all(15.0),
+//         child: FlatButton(
+//           color: color,
+//           child: Text(
+//             '$option',
+//             style: TextStyle(
+//               fontSize: 20.0,
+//               color: Colors.white,
+//             ),
+//           ),
+//           onPressed: () {
+//             //The user picked false.
+//
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
