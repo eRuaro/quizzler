@@ -25,16 +25,16 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = [
-    Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-    )
+  List<Icon> scoreKeeper = [];
+
+  List<String> questions = [
+    'Neil Ruaro is a Flutter Developer',
+    'Neil Ruaro is a C# Developer',
+    'Neil Ruaro does Competitive Programming',
+    'Neil Ruaro is single',
   ];
+
+  int questionNumber = 0;
 
   Expanded options(Color color, String option) {
     return Expanded(
@@ -53,22 +53,22 @@ class _QuizPageState extends State<QuizPage> {
             //The user picked false.
             setState(() {
               if (option == 'True') {
-              scoreKeeper.add(
-              Icon(
-              Icons.check,
-              color: Colors.green,
-              ),
-              );
-              }
-              else {
+                scoreKeeper.add(
+                  Icon(
+                    Icons.check,
+                    color: Colors.green,
+                  ),
+                );
+                questionNumber++;
+              } else {
                 scoreKeeper.add(
                   Icon(
                     Icons.close,
                     color: Colors.red,
-                  )
+                  ),
                 );
+                questionNumber++;
               }
-
             });
           },
         ),
@@ -88,7 +88,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
