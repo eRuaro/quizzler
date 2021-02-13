@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() => runApp(Quizzler());
 
@@ -44,6 +45,43 @@ class _QuizPageState extends State<QuizPage> {
   //   false,
   // ];
 
+  void checkAnswer(bool userAnswer) {
+    //The user picked false.
+    bool correctAnswer = quizBrain.questionAnswer();
+
+    if (userAnswer == true) {
+      if (correctAnswer == true) {
+        scoreKeeper.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        scoreKeeper.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+    } else {
+      if (correctAnswer == false) {
+        scoreKeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        scoreKeeper.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   Expanded options(Color color, String option) {
     return Expanded(
       child: Padding(
@@ -58,43 +96,32 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
           onPressed: () {
-            //The user picked false.
-            bool correctAnswer = quizBrain.questionAnswer();
-
             setState(() {
-              if (option == 'True') {
-                if (correctAnswer == true) {
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                  );
-                } else {
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    ),
-                  );
-                }
+              if (quizBrain.isFinished() == true) {
+                //This is the code for the basic alert from the docs for rFlutter Alert:
+                //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
+
+                //Modified for our purposes:
+                Alert(
+                  context: context,
+                  title: 'Finished!',
+                  desc: 'You\'ve reached the end of the quiz.',
+                ).show();
+
+                quizBrain.reset();
+
+                scoreKeeper = [];
               } else {
-                if (correctAnswer == false) {
-                  scoreKeeper.add(Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ));
+                if (option == 'True') {
+                  checkAnswer(true);
                 } else {
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    ),
-                  );
+                  checkAnswer(false);
                 }
+
+                quizBrain.nextQuestion();
               }
 
-              quizBrain.nextQuestion();
+
             });
           },
         ),
