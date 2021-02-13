@@ -1,6 +1,9 @@
 import 'package:quizler/Questions.dart';
 
 class QuizBrain {
+
+  int _questionNumber = 0;
+
   List<Questions> _questions = [
     Questions(question: 'Neil Ruaro is a Flutter Developer', answer: true),
     Questions(question: 'Neil Ruaro is a C# Developer', answer: false),
@@ -12,11 +15,17 @@ class QuizBrain {
     Questions(question: 'Neil Ruaro prefers C++ to Python', answer: true),
   ];
 
-  String questionText(int questionNumber) {
-    return _questions[questionNumber].questionText;
+  void nextQuestion() {
+    if (_questionNumber < _questions.length - 1) {
+      _questionNumber++;
+    }  
   }
 
-  bool questionAnswer(int questionNumber) {
-    return _questions[questionNumber].questionAnswer;
+  String questionText() {
+    return _questions[_questionNumber].questionText;
+  }
+
+  bool questionAnswer() {
+    return _questions[_questionNumber].questionAnswer;
   }
 }

@@ -44,8 +44,6 @@ class _QuizPageState extends State<QuizPage> {
   //   false,
   // ];
 
-  int questionNumber = 0;
-
   Expanded options(Color color, String option) {
     return Expanded(
       child: Padding(
@@ -61,7 +59,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
           onPressed: () {
             //The user picked false.
-            bool correctAnswer = quizBrain.questionAnswer(questionNumber);
+            bool correctAnswer = quizBrain.questionAnswer();
 
             setState(() {
               if (option == 'True') {
@@ -96,7 +94,7 @@ class _QuizPageState extends State<QuizPage> {
                 }
               }
 
-              questionNumber++;
+              quizBrain.nextQuestion();
             });
           },
         ),
@@ -116,7 +114,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionText(questionNumber),
+                quizBrain.questionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
