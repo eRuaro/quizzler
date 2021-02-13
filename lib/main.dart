@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Questions.dart';
 
 void main() => runApp(Quizzler());
 
@@ -27,18 +28,26 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
-  List<String> questions = [
-    'Neil Ruaro is a Flutter Developer',
-    'Neil Ruaro is a C# Developer',
-    'Neil Ruaro does Competitive Programming',
-    'Neil Ruaro is single',
-  ];
+  // List<String> questions = [
+  //   'Neil Ruaro is a Flutter Developer',
+  //   'Neil Ruaro is a C# Developer',
+  //   'Neil Ruaro does Competitive Programming',
+  //   'Neil Ruaro is single',
+  // ];
 
-  List<bool> answers = [
-    true,
-    false,
-    true,
-    false,
+  // List<bool> answers = [
+  //   true,
+  //   false,
+  //   true,
+  //   false,
+  // ];
+
+  List<Questions> questions = [
+    Questions(question: 'Neil Ruaro is a Flutter Developer', answer: true),
+    Questions(question: 'Neil Ruaro is a C# Developer', answer: false),
+    Questions(question: 'Neil Ruaro does Competitive Programming', answer: true),
+    Questions(question: 'Neil Ruaro is single', answer: false)
+
   ];
 
   int questionNumber = 0;
@@ -58,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
           onPressed: () {
             //The user picked false.
-            bool correctAnswer = answers[questionNumber];
+            bool correctAnswer = questions[questionNumber].questionAnswer;
 
             setState(() {
               if (option == 'True') {
@@ -113,7 +122,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNumber],
+                questions[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
