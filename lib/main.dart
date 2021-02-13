@@ -34,6 +34,13 @@ class _QuizPageState extends State<QuizPage> {
     'Neil Ruaro is single',
   ];
 
+  List<bool> answers = [
+    true,
+    false,
+    true,
+    false,
+  ];
+
   int questionNumber = 0;
 
   Expanded options(Color color, String option) {
@@ -51,24 +58,42 @@ class _QuizPageState extends State<QuizPage> {
           ),
           onPressed: () {
             //The user picked false.
+            bool correctAnswer = answers[questionNumber];
+
             setState(() {
               if (option == 'True') {
-                scoreKeeper.add(
-                  Icon(
+                if (correctAnswer == true) {
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                  );
+                } else {
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  );
+                }
+              } else {
+                if (correctAnswer == false) {
+                  scoreKeeper.add(Icon(
                     Icons.check,
                     color: Colors.green,
-                  ),
-                );
-                questionNumber++;
-              } else {
-                scoreKeeper.add(
-                  Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ),
-                );
-                questionNumber++;
+                  ));
+                } else {
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  );
+                }
               }
+
+              questionNumber++;
             });
           },
         ),
