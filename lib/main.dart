@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'Questions.dart';
+import 'quiz_brain.dart';
 
 void main() => runApp(Quizzler());
+
+QuizBrain quizBrain = QuizBrain();
 
 class Quizzler extends StatelessWidget {
   @override
@@ -42,14 +44,6 @@ class _QuizPageState extends State<QuizPage> {
   //   false,
   // ];
 
-  List<Questions> questions = [
-    Questions(question: 'Neil Ruaro is a Flutter Developer', answer: true),
-    Questions(question: 'Neil Ruaro is a C# Developer', answer: false),
-    Questions(question: 'Neil Ruaro does Competitive Programming', answer: true),
-    Questions(question: 'Neil Ruaro is single', answer: false)
-
-  ];
-
   int questionNumber = 0;
 
   Expanded options(Color color, String option) {
@@ -67,7 +61,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
           onPressed: () {
             //The user picked false.
-            bool correctAnswer = questions[questionNumber].questionAnswer;
+            bool correctAnswer = quizBrain.questionAnswer(questionNumber);
 
             setState(() {
               if (option == 'True') {
@@ -122,7 +116,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNumber].questionText,
+                quizBrain.questionText(questionNumber),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
